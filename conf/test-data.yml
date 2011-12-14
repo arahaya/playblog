@@ -1,0 +1,90 @@
+# Test data
+
+Category(programming):
+    slug:           programming
+    name:           Programming
+
+Category(other):
+    slug:           other
+    name:           Other
+
+Tag(playframework):
+    slug:           playframework
+    name:           Play! Framework
+    
+Tag(java):
+    slug:           java
+    name:           Java
+
+Tag(python):
+    slug:           python
+    name:           Python
+
+Tag(flask):
+    slug:           flask
+    name:           Flask
+
+Tag(javascript):
+    slug:           javascript
+    name:           JavaScript
+
+Tag(jquery):
+    slug:           jquery
+    name:           jQuery
+
+Tag(html5):
+    slug:           html5
+    name:           HTML5
+
+Tag(canvas):
+    slug:           canvas
+    name:           Canvas
+
+Post(p1):
+    slug:           about-the-model-layer
+    title:          About the model layer
+    published:      2009-06-14
+    category:       programming
+    tags:           
+                    - playframework
+                    - java
+                    - html5
+    content:        |
+                    The model has a central position in a Play! application. It is the domain-specific 
+                    representation of the information on which the application operates.
+                     
+                    Martin fowler defines it as :
+                        
+                    Responsible for representing concepts of the business, information about the 
+                    business situation, and business rules. State that reflects the business situation 
+                    is controlled and used here, even though the technical details of storing it are 
+                    delegated to the infrastructure. This layer is the heart of business software.
+
+Post(p2):
+    slug:           just-a-test-of-yabe
+    title:          Just a test of YABE
+    published:      2009-03-25
+    category:       programming
+    tags:           
+                    - javascript
+                    - jquery
+                    - html5
+                    - canvas
+    content:        |
+                    Well, it's just a test.
+                    
+Post(p3):
+    slug:           the-mvc-application
+    title:          The MVC application
+    published:      2009-06-06
+    category:       programming
+    tags:           
+                    - python
+                    - flask
+    content:        |
+                    A Play! application follows the MVC architectural pattern as applied to the 
+                    architecture of the Web.
+                     
+                    This pattern splits the application into separate layers: the Presentation 
+                    layer and the Model layer. The Presentation layer is further split into a 
+                    View and a Controller layer.

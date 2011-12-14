@@ -1,0 +1,22 @@
+#{if posts.size()}
+				<ol class="post-list">
+#{list posts}
+					<li class="post-list-item">
+						<article id="post-${_.slug}" class="post post-summary category-${_.category.slug}">
+							<header>
+								<h1 class="post-title"><a href="${_.permalink()}">${_.title}</a></h1>
+								<p class="post-date">
+									<time datetime="${_.published.rfc3339()}" pubdate>${_.published.format()}</time>
+								</p>
+							</header>
+							<div class="post-content">
+${_.content.markdown().stripTags().truncate(140)}
+							</div>
+						</article>
+					</li>
+#{/list}
+				</ol>
+#{/if}
+#{else}
+				<p class="no-results">記事がありません</p>
+#{/else}

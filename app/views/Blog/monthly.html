@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+%{
+    title = date.format("yyyy/MM");
+    type = 'article';
+    url = play.mvc.Router.getFullUrl('Blog.monthly', [date: date.format("yyyy/MM"), page: 1]);
+}%
+			<section class="archives">
+				<h1 class="title">Monthly archives for ${date.format("yyyy/MM")}</h1>
+#{include 'post-list.html' /}
+			</section>

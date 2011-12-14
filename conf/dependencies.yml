@@ -1,0 +1,8 @@
+# Application dependencies
+
+require:
+    - play -> crud
+    - play -> secure
+    - play -> markdown 1.5
+    - play -> less 0.3
+    - org.jsoup -> jsoup 1.6.1

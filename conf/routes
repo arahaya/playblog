@@ -1,0 +1,46 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Crud module
+*       /admin                                     module:crud
+
+# Secure module
+*       /                                          module:secure
+
+# Static files
+GET     /favicon.ico                               staticFile:public/images/favicon.ico
+GET     /robots.txt                                staticFile:public/robots.txt
+
+# Static dirs
+GET     /public/                                   staticDir:public
+
+# Home page
+GET     /                                          Blog.archives(page:'1')
+GET     /page/{page}                               Blog.archives
+
+# For reverse routing
+GET     /                                          Blog.index
+
+# Date based
+GET     /{<[0-9]{4}>date}/                         Blog.yearly(page:'1')
+GET     /{<[0-9]{4}>date}/page/{page}/             Blog.yearly
+GET     /{<[0-9]{4}/[0-9]{2}>date}/                Blog.monthly(page:'1')
+GET     /{<[0-9]{4}/[0-9]{2}>date}/page/{page}/    Blog.monthly
+
+# Category based
+GET     /category/{slug}/                          Blog.category(page:'1')
+GET     /category/{slug}/page/{page}/              Blog.category
+
+# Tag based
+GET     /tag/{slug}/                               Blog.tag(page:'1')
+GET     /tag/{slug}/page/{page}/                   Blog.tag
+
+# Single post
+GET     /{<[0-9]{4}/[0-9]{2}>date}/{slug}/         Blog.post
+
+# Feed
+GET     /atom.xml                                  Blog.atom(format:'xml')
+
+# Force trailing slash
+GET     /[^\.]+[^/]$                               Helper.addSlash

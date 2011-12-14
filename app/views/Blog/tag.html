@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+%{
+    title = tag.name;
+    type = 'article';
+    url = play.mvc.Router.getFullUrl('Blog.tag', [slug: tag.slug, page: 1]);
+}%
+			<section class="archives">
+				<h1 class="title">Topic archives for ${tag.name}</h1>
+#{include 'post-list.html' /}
+			</section>

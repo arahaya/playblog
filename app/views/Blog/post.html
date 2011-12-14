@@ -1,0 +1,87 @@
+#{extends 'main.html' /}
+%{
+    title = post.title;
+    type = 'article';
+    url = post.permalink(true);
+    description = post.content.markdown().stripTags().truncate(140);
+}%
+			<article id="post-${post.slug}" class="post single-post category-${post.category.slug}">
+				<header>
+					<h1 class="post-title"><a href="${post.permalink()}" class="link">${post.title}</a></h1>
+					<p class="post-date"><time datetime="${post.published.rfc3339()}" pubdate>${post.published.format()}</time></p>
+				</header>
+				<div class="post-content">
+${post.content.markdown().raw()}
+				</div>
+				<footer class="post-info">*{
+					<span class="category">
+						Category: <a href="@{Blog.category(post.category.slug, 1)}">${post.category.name}</a>
+					</span>}*
+					<span class="topics">Topics:
+#{list post.tags}
+						<a href="@{Blog.tag(_.slug, 1)}">${_.name}</a>${_isLast ? '':', '}
+#{/list}
+					</span>
+				</footer>
+				<div id="social-widget" class="widget no-print">
+					<ul class="social-button-list">
+						<li id="facebook-like" class="social-button">
+							<iframe src="//www.facebook.com/plugins/like.php?href=${post.permalink(true).urlEncode()}&amp;send=false&amp;layout=button_count&amp;width=110&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=auto"></iframe>
+						</li>
+						<li id="twitter-share" class="social-button">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="${post.permalink(true)}" data-lang="ja" data-count="none">Tweet</a>
+						</li>*{
+						<li id="facebook-share" class="social-button">
+							<a name="fb_share" type="button" share_url="${post.permalink(true)}"></a>
+						</li>}*
+						<li id="hatena-bookmark" class="social-button">
+							<a href="http://b.hatena.ne.jp/entry/${post.permalink(true)}" class="hatena-bookmark-button" data-hatena-bookmark-title="${post.title}" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加">
+								<img src="http://b.st-hatena.com/images/entry-button/button-only.gif" width="20" height="20" alt="このエントリーをはてなブックマークに追加" />
+							</a>
+						</li>
+						<li id="google-plusone" class="social-button">
+							<div class="g-plusone" data-size="medium" data-annotation="none" data-href="${post.permalink(true)}"></div>
+						</li>
+					</ul>
+				</div>
+#{if post.related().size()}
+				<aside id="related-posts-widget" class="widget">
+					<h1 class="widget-title">関連トピックの記事</h1>
+					<ul class="post-list">
+#{list post.related()}
+						<li class="post-list-item"><a href="${_.permalink()}">${_.title}</a></li>
+#{/list}
+					</ul>
+				</aside>
+#{/if}
+			</article>
+			<div id="comment-widget" class="widget">
+				<div id="disqus_thread"></div>
+				<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+			</div>
+#{set 'moreScripts'}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js" async="async"></script>*{
+<script type="text/javascript" src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" async="async"></script>}*
+<script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+<script type="text/javascript">
+window.___gcfg = {lang: 'ja'};
+(function() {
+	var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	po.src = 'https://apis.google.com/js/plusone.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+<script type="text/javascript">
+var disqus_shortname = 'arahaya-blog';
+var disqus_identifier = '${post.slug}';
+var disqus_url = '${post.permalink(true)}';
+var disqus_developer = ${play.mode.isDev() ? 1 : 0};
+var disqus_title = "${post.title}";
+
+(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+#{/set}

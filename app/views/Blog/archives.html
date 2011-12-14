@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+%{
+    type = 'blog';
+    url = play.mvc.Router.getFullUrl('Blog.index');
+}%
+			<section class="archives">
+#{include 'post-list.html' /}
+			</section>

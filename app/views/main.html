@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="${_response_encoding}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>あらき#{if title}: ${title}#{/if}</title>
+<meta name="description" content="${description ?: 'あらきのブログです。'}">
+<meta name="og:title" content="あらき#{if title}: ${title}#{/if}">
+<meta name="og:description" content="${description ?: 'あらきのブログです。'}">
+<meta name="og:type" content="${type}">
+<meta name="og:url" content="${url}">
+<meta name="og:image" content="@@{'/public/images/128.png'}">
+<meta name="og:site_name" content="あらき">
+<meta name="og:locale" content="ja_JP">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/arahaya/blog">
+<link rel="shortcut icon" href="@{'/public/images/favicon.ico'}">
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="@{'/public/stylesheets/skeleton-grid.css'}">
+<link rel="stylesheet" href="@{'/public/stylesheets/prettify.css'}">
+<link rel="stylesheet" href="@{'/public/stylesheets/app.less'}">
+#{get 'moreStyles' /}
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-23571965-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</head>
+<body id="top">
+<div class="container">
+	<header class="row header">
+		<div class="logo sixteen columns">
+			<hgroup>
+				<h1 class="title"><a href="@{Blog.index}">あらき</a></h1>
+				<h2 class="subtitle">あらきのブログです。</h2>
+			</hgroup>
+		</div>
+	</header>
+	<div class="row content">
+		<div class="main ten columns">
+#{doLayout /}
+		</div>
+		<aside class="sidebar five columns offset-by-one">
+			<section id="profile-widget" class="widget">
+				<h1 class="widget-title">プロフィール</h1>
+				<address class="widget-content vcard">
+					<span class="vcard-item">あらき</span>
+					<span class="vcard-item">${'arahaya.com@gmail.com'.mailto().raw()}</span>
+					<span class="vcard-item"><a href="https://www.facebook.com/arahaya">https://www.facebook.com/arahaya</a></span>
+					<span class="vcard-item"><a href="https://github.com/arahaya">https://github.com/arahaya</a></span>
+				</address>
+			</section>
+#{cache 'recentPosts', for:'1h'}
+#{if models.Post.findActive(1, 5).size()}
+			<section id="recent-posts-widget" class="widget">
+				<h1 class="widget-title">最新の記事</h1>
+				<ol class="post-list widget-content">
+#{list models.Post.findActive(1, 5)}
+					<li class="post-list-item"><a href="${_.permalink()}">${_.title}</a></li>
+#{/list}
+				</ol>
+			</section>
+#{/if}
+#{/cache}
+		</aside>
+	</div>
+	<footer class="row footer">
+		<div class="sixteen columns">
+			<small class="copyright"><a href="http://www.arahaya.com">arahaya.com</a></small>
+		</div>
+	</footer>
+</div>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="@{'/public/javascripts/prettify.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/app.js'}"></script>
+#{get 'moreScripts' /}
+</body>
+</html>
