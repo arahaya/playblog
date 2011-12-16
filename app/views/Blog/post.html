@@ -13,15 +13,17 @@
 				<div class="post-content">
 ${post.content.markdown().raw()}
 				</div>
-				<footer class="post-info">*{
+				<footer class="post-info">
 					<span class="category">
 						Category: <a href="@{Blog.category(post.category.slug, 1)}">${post.category.name}</a>
-					</span>}*
+					</span>
+#{if post.tags.size()}
 					<span class="topics">Topics:
 #{list post.tags}
 						<a href="@{Blog.tag(_.slug, 1)}">${_.name}</a>${_isLast ? '':', '}
 #{/list}
 					</span>
+#{/if}
 				</footer>
 				<div id="social-widget" class="widget no-print">
 					<ul class="social-button-list">
@@ -29,7 +31,7 @@ ${post.content.markdown().raw()}
 							<iframe src="//www.facebook.com/plugins/like.php?href=${post.permalink(true).urlEncode()}&amp;send=false&amp;layout=button_count&amp;width=110&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=auto"></iframe>
 						</li>
 						<li id="twitter-share" class="social-button">
-							<a href="https://twitter.com/share" class="twitter-share-button" data-url="${post.permalink(true)}" data-lang="ja" data-count="none">Tweet</a>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="${post.permalink(true)}" data-counturl="${post.permalink(true)}" data-lang="ja" data-count="none">Tweet</a>
 						</li>*{
 						<li id="facebook-share" class="social-button">
 							<a name="fb_share" type="button" share_url="${post.permalink(true)}"></a>

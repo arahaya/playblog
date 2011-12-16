@@ -28,10 +28,7 @@ public class Blog extends Controller {
     }
 
     public static void monthly(@As("yyyy/MM") Date date, int page) {
-        if (date == null) {
-            // invalid date like 2011/13 was passed
-            notFound();
-        }
+        notFoundIfNull(date); // invalid date like 2011/13 was passed
 
         long total = Post.countByMonth(date);
         List<Post> posts = Post.findByMonth(date, page, 10);
@@ -40,10 +37,7 @@ public class Blog extends Controller {
 
     public static void category(String slug, int page) {
         Category category = Category.findBySlug(slug);
-
-        if (category == null) {
-            notFound();
-        }
+        notFoundIfNull(category);
 
         long total = Post.countByCategory(category);
         List<Post> posts = Post.findByCategory(category, page, 10);
@@ -52,10 +46,7 @@ public class Blog extends Controller {
     
     public static void tag(String slug, int page) {
         Tag tag = Tag.findBySlug(slug);
-
-        if (tag == null) {
-            notFound();
-        }
+        notFoundIfNull(tag);
 
         long total = Post.countByTag(tag);
         List<Post> posts = Post.findByTag(tag, page, 10);
@@ -65,10 +56,7 @@ public class Blog extends Controller {
     @CacheFor("1h")
     public static void post(@As("yyyy/MM") Date date, String slug) {
         Post post = Post.findBySlugAndDate(slug, date);
-
-        if (post == null) {
-            notFound();
-        }
+        notFoundIfNull(post);
 
         render(post);
     }

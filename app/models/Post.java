@@ -194,6 +194,10 @@ public class Post extends Model {
     }
 
     public List<Post> related(int limit) {
+        if (this.tags.size() == 0) {
+            return new ArrayList<Post>();
+        }
+        
         String hql = "" +
                 "SELECT DISTINCT p" +
                 "  FROM Post p" +
